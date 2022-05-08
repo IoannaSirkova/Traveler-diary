@@ -118,6 +118,16 @@ Destination::Destination(std::string name, std::string start_date, std::string e
 	this->photos = photos;
 }
 
+Destination::~Destination()
+{
+	name.clear();
+	start_date.clear();
+	end_date.clear();
+	rate = 0;
+	coments.clear();
+	photos.clear();
+}
+
 std::string Destination::GetPeriod()
 {
 	std::string period = start_date + "/n" + end_date;
