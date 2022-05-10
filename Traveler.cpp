@@ -66,7 +66,6 @@ void Traveler::PrintAllDestination()
 	size_t size = list_dest.size();
 	for (size_t i = 0; i < size; i++)
 	{
-		std::cout << i << ". ";
 		list_dest[i]->Print();
 		std::cout << std::endl;
 	}
