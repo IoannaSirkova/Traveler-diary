@@ -15,6 +15,21 @@ bool Traveler::ValidUserName(std::string user_name)
 
 }
 
+void Traveler::PrintSpecificDestination(std::string name_dest)
+{
+	size_t counter = 0;
+	for (size_t i = 0; i < list_dest.size(); i++)
+	{
+		if (list_dest[i]->GetName()==name_dest)
+		{
+			std::cout << counter << ". ";
+			list_dest[i]->Print();
+			std::cout<< std::endl;
+			counter++;
+		}
+	}
+}
+
 Traveler::Traveler(std::string user_name, std::string password, std::string email, std::vector<Destination*> list_dest)
 {
 	if (!ValidUserName(user_name))
@@ -38,7 +53,7 @@ std::vector<Destination*> Traveler::SearchDestinationByName(std::string name_des
 	std::vector<Destination*> all_destination_with_this_name;
 	for (size_t i = 0; i < list_dest.size(); i++)
 	{
-		if (list_dest[i]->GetName().find(name_destination) != -1)
+		if (list_dest[i]->GetName()==name_destination)
 		{
 			all_destination_with_this_name.push_back(list_dest[i]);
 		}
@@ -51,7 +66,7 @@ void Traveler::PrintAllDestination()
 	size_t size = list_dest.size();
 	for (size_t i = 0; i < size; i++)
 	{
-		std::cout << i << ".";
+		std::cout << i << ". ";
 		list_dest[i]->Print();
 		std::cout << std::endl;
 	}
@@ -68,37 +83,10 @@ void Traveler::AddNewDestination(std::string name, std::string start_date, std::
 	list_dest.push_back(&new_dest);
 }
 
-void Traveler::AddNewPhotoToDestination(std::string name_dest, std::string photo)
+void Traveler::Print()
 {
-	std::vector<Destination*> dest = SearchDestinationByName(name_dest);
-	size_t size = dest.size();
-	if (size == 0)
-	{
-		std::cout << "There is no destination with that name" << std::endl;
-	}
-	else if (size==1)
-	{
-		dest[0]->AddPhoto(photo);
-	}
-	else
-	{
-		std::cout<< "There is more than one destination with this name" << std::endl;
-		PrintAllDestination();
-		std::cout << "Please select which one do you want by writing the number: ";
-		int number;
-		std::cin >> number;
-		while (number >= dest.size())
-		{
-
-			std::cout<<std::endl << "This number is invalid, please input new one:";
-			std::cin >> number;
-
-		}
-
-		dest[number]->AddPhoto(photo);
-	}
-
-
-		
+	std::cout << user_name << std::endl;
+	std::cout << password << std::endl;
+	std::cout << email << std::endl;
+	PrintAllDestination();
 }
-

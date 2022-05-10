@@ -4,7 +4,7 @@
 #include <string>
 #include "Destination.h"
 
-class Traveler :public Destination
+class Traveler
 {
 private:
 	std::string user_name;
@@ -13,6 +13,7 @@ private:
 	std::vector<Destination*> list_dest;
 
 	bool ValidUserName(std::string user_name);
+	void PrintSpecificDestination(std::string name_dest);
 
 public:
 	Traveler() = default;
@@ -25,7 +26,6 @@ public:
 	void AddNewDestination(Destination* new_dest);
 	void AddNewDestination(std::string name, std::string start_date, std::string end_date, int rate,
 		std::string comments, std::vector<std::string> photos);
-	void AddNewPhotoToDestination(std::string name_dest, std::string photo);
 
-	
+	void Print();
 };

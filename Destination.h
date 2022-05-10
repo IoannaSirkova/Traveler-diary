@@ -17,7 +17,6 @@ protected:
 	void ValidDate(std::string& date);
 	bool ValidDates(std::string start_date, std::string end_date);
 	bool ValidPhotos(std::vector<std::string>& photos);
-	bool ValidPhoto(std::string photo);
 
 public:
 	Destination() = default;
@@ -31,7 +30,6 @@ public:
 	std::vector<std::string>* GetPhotos();
 	bool operator== (const Destination& helper);
 	Destination operator= (const Destination& helper);
-	void AddPhoto(std::string photo);
 	void Print();
 	
 
