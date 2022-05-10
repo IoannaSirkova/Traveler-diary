@@ -76,6 +76,21 @@ bool Destination::ValidDates(std::string start_date, std::string end_date)
 
 }
 
+bool Destination::ValidPhoto(std::string photo)
+{
+	if (photo.find(".jpeg") == -1 && photo.find(".png") == -1)
+		return false;
+	size_t size = photos.size();
+	for (size_t i = 0; i < size; i++)
+	{
+		if (!((photo[i] >= 'a' && photo[i] <= 'z')
+			|| (photo[i] >= 'A' && photo[i] <= 'Z')
+			|| photo[i] == '.' || photo[i] == '_'))
+			return false;
+	}
+	return true;
+}
+
 bool Destination::ValidPhotos(std::vector<std::string>& photos)
 {
 	size_t size = photos.size();
@@ -98,7 +113,7 @@ bool Destination::ValidPhotos(std::vector<std::string>& photos)
 	return true;
 }
 
-Destination::Destination(std::string name, std::string start_date, std::string end_date,
+Destination::Destination(std::string name,std::string start_date, std::string end_date,
 	int rate, std::string coments, std::vector<std::string> photos)
 {
 	this->name = name;
@@ -117,6 +132,7 @@ Destination::Destination(std::string name, std::string start_date, std::string e
 		throw std::exception("There is some problem with the photos!");
 	this->photos = photos;
 }
+
 
 Destination::~Destination()
 {
@@ -140,9 +156,14 @@ std::string Destination::GetRate()
 	return rate_str;
 }
 
-std::string Destination::GetComents()
+std::string Destination::GetComents() const
 {
 	return coments;
+}
+
+std::string Destination::GetName() const
+{
+	return name;
 }
 
 std::vector<std::string>* Destination::GetPhotos()
@@ -207,6 +228,17 @@ std::ostream& operator<<(std::ostream& os, const Destination& dt)
 //
 //} 
 
-
-
-
+void Destination::AddPhoto(std::string photo)
+{
+	if (ValidPhoto(photo))
+		photos.push_back(photo);
+	else throw std::exception("This photo is not valid!");
+}
+void Destination::Print()
+{
+	std::cout<< name << ' ' << start_date << ' ' << end_date << ' ' << rate << ' ' << coments << ' '<< photos[0];
+	for (size_t i = 1; i < photos.size(); i++)
+	{
+		std::cout << ',' << photos[i];
+	}
+}
