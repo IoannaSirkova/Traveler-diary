@@ -1,69 +1,86 @@
 #include "DataBaseOfTravelers.h"
 #include <sstream>
 
-Traveler* DataBaseOfTravelers::MakeTraveler(const std::string filepath)
+Traveler* DataBaseOfTravelers::MakeTraveler(const std::string& filepath)
 {
-    std::ifstream file(filepath);
-    if (!file)
+    std::vector<Destination*> destinations;
+    std::ifstream user_file(filepath);
+    if (!user_file)
     {
         throw std::exception("Such file doesn't exist!\n");
+
     }
-    std::string currLine;
-    std::getline(file, currLine);
-    std::string user_name = currLine;
+    std::string currLine_user;
+    std::getline(user_file, currLine_user);
+    std::string user_name = currLine_user;
 
-    std::getline(file, currLine);
-    std::string password = currLine;
-    
-    std::getline(file, currLine);
-    std::string email = currLine;
 
-    std::vector<Destination*> destinations;
-    Destination destination;
+    std::getline(user_file, currLine_user);
+    std::string password = currLine_user;
 
-    while (file)
+
+    getline(user_file, currLine_user);
+    std::string email = currLine_user;
+
+
+    while (user_file)
     {
-        if (file.eof()) break;
 
-        std::getline(file, currLine);
-        std::string dest = currLine;
-
-        std::getline(file, currLine);
-        std::string start_date = currLine;
-
-        std::getline(file, currLine);
-        std::string end_date= currLine;
-
-        std::getline(file, currLine);
-        std::string rate_str= currLine;
-        int rate = stoi(rate_str);   //checked this on Google
-
-        std::getline(file, currLine);
-        std::string comments = currLine;
-
-        std::getline(file, currLine);
-        std::stringstream temp(currLine);
-
-        std::vector<std::string> photos;
-        std::string photo;
-        while (temp>>photo)
+        if (user_file.eof())
         {
-            
+
+            break;
+        }
+
+        getline(user_file, currLine_user);
+        std::string dest = currLine_user;
+
+
+        getline(user_file, currLine_user);
+        std::string start_date = currLine_user;
+
+
+        getline(user_file, currLine_user);
+       std:: string end_date = currLine_user;
+
+
+        getline(user_file, currLine_user);
+        std::string rate_str = currLine_user;
+        int rate = stoi(rate_str);
+
+
+        getline(user_file, currLine_user);
+        std::string comments = currLine_user;
+
+
+        getline(user_file, currLine_user);
+        std::stringstream temp(currLine_user);
+
+        std::string photo;
+        std::vector<std::string> photos;
+        while (temp >> photo)
+        {
             photos.push_back(photo);
         }
-        
-        Destination help(dest, start_date, end_date, rate, comments, photos);
-        destination = help;
-        destinations.push_back(&destination);
+        Destination* destination = new Destination(dest, start_date, end_date, rate, comments, photos);
+        destinations.push_back(destination);
 
-       
+
     }
+    user_file.close();
+    Traveler* traveler = new Traveler(user_name, password, email, destinations);
+    return traveler;
 
-    destinations[0]->Print();
-    Traveler traveler(user_name, password, email, destinations);
-  
-    return &traveler;
+}
 
+DataBaseOfTravelers::~DataBaseOfTravelers()
+{
+    size_t size = travelers.size();
+    for (size_t i = 0; i < size; i++)
+    {
+        travelers[i]->~Traveler();
+    }
+    travelers.clear();
 }
 
 void  DataBaseOfTravelers::RunDataBase()
@@ -74,23 +91,20 @@ void  DataBaseOfTravelers::RunDataBase()
     {
         throw std::exception("Such file doesn't exist!\n");
     }
-    int counter = 0;
     while (file)
     {
 
         if (file.eof()) break;
         std::string currLine;
         std::getline(file, currLine);
-        //std::cout << currLine << std::endl;
         travelers.push_back(MakeTraveler(currLine));
-        travelers[counter]->Print();
     }
+    file.close();
 }
 
 void DataBaseOfTravelers::Print()
 {
     size_t size = travelers.size();
-    std::cout << size << std::endl;
     for (size_t i = 0; i < size; i++)
     {
         travelers[i]->Print();

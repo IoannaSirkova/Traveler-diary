@@ -10,11 +10,13 @@
 class DataBaseOfTravelers
 {
 	std::vector<Traveler*> travelers;
-	
+
 
 public:
 	DataBaseOfTravelers() = default;
-	Traveler* MakeTraveler(const std::string filepath);
+	~DataBaseOfTravelers();
+
+	Traveler* MakeTraveler(const std::string& filepath);
 	void RunDataBase();
 
 	void Print();
