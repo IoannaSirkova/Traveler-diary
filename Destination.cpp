@@ -128,31 +128,14 @@ Destination::~Destination()
 	photos.clear();
 }
 
-std::string Destination::GetPeriod()
-{
-	std::string period = start_date + "/n" + end_date;
-	return period;
-}
-
-std::string Destination::GetRate()
-{
-	std::string rate_str = std::to_string(rate);
-	return rate_str;
-}
-
-std::string Destination::GetComents() const
-{
-	return coments;
-}
-
 std::string Destination::GetName() const
 {
-	return name;
+	return this->name;
 }
 
-std::vector<std::string>* Destination::GetPhotos()
+int Destination::GetRate()
 {
-	return &photos;
+	return rate;
 }
 
 bool Destination::operator==(const Destination& helper)
@@ -179,38 +162,19 @@ Destination Destination::operator=(const Destination& helper)
 
 }
 
-std::ostream& operator<<(std::ostream& os, const Destination& dt)
+void Destination::SpecPrint()
 {
-	os << dt.name << ' ' << dt.start_date << ' ' << dt.end_date << ' ' << dt.rate << ' ' << dt.coments << ' ';
-	os << dt.photos[0];
-	for (size_t i = 1; i < dt.photos.size(); i++)
+	std::cout <<"Period: "<< start_date << ' ' << end_date << std::endl<<"Rate: " <<rate << std::endl <<"Comments: "<<coments << std::endl;
+	std::cout <<"Photos: "<< photos[0];
+	for (size_t i = 1; i < photos.size(); i++)
 	{
-		os << ',' << dt.photos[i];
+		std::cout << ',' << photos[i];
 	}
-	return os;
+	std::cout << std::endl;
+
 }
 
-//std::istream& operator>>(std::istream& is,Destination& dt)
-//{
-//	std::string name,date1,date2,coments;
-//	int rate;
-//	std::vector<std::string> photos;
-//	is >> name >> date1 >> date2;
-//	is >> rate;
-//	is >> coments;
-//	std::string helper;
-//	//is >> helper;
-//	while (is>>helper)                                             //// Not sure how to do it right....
-//	{
-//
-//		photos.push_back(helper);
-//		//is >> helper;
-//	}
-//	Destination help(name, date1, date2, rate, coments, photos);
-//	dt = help;
-//	return is;
-//
-//} 
+
 
 void Destination::Print()
 {

@@ -4,7 +4,7 @@ int main()
 
     DataBaseOfTravelers DataBase;
     DataBase.RunDataBase();
-    DataBase.Print();
+    DataBase.User();
 
     return 0;
 	

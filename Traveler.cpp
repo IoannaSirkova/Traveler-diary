@@ -30,6 +30,21 @@ void Traveler::PrintSpecificDestination(std::string name_dest)
 	}
 }
 
+std::string Traveler::GetUserName() const
+{
+	return user_name;
+}
+
+std::string Traveler::GetPassword() const
+{
+	return password;
+}
+
+std::string Traveler::GetEmail() const
+{
+	return email;
+}
+
 Traveler::Traveler(std::string user_name, std::string password, std::string email, std::vector<Destination*> list_dest)
 {
 	if (!ValidUserName(user_name))
@@ -38,6 +53,13 @@ Traveler::Traveler(std::string user_name, std::string password, std::string emai
 	this->email = email;
 	this->password = password;
 	this->list_dest = list_dest;
+}
+
+Traveler::Traveler(std::string user_name, std::string password, std::string email)
+{
+	this->user_name = user_name;
+	this->email = email;
+	this->password = password;
 }
 
 Traveler::~Traveler()
@@ -71,21 +93,3 @@ void Traveler::PrintAllDestination()
 	}
 }
 
-void Traveler::AddNewDestination(Destination* new_dest)
-{
-	list_dest.push_back(new_dest);
-}
-
-void Traveler::AddNewDestination(std::string name, std::string start_date, std::string end_date, int rate, std::string comments, std::vector<std::string> photos)
-{
-	Destination new_dest(name, start_date, end_date, rate, comments, photos);
-	list_dest.push_back(&new_dest);
-}
-
-void Traveler::Print()
-{
-	std::cout << user_name << std::endl;
-	std::cout << password << std::endl;
-	std::cout << email << std::endl;
-	PrintAllDestination();
-}

@@ -23,18 +23,10 @@ public:
 	Destination(std::string name,std::string start_date, std::string end_date,
 		int rate, std::string coments, std::vector<std::string> photos);
 	~Destination();
-	std::string GetPeriod();
-	std::string GetRate();
-	std::string GetComents() const;
-	std::string GetName() const; 
-	std::vector<std::string>* GetPhotos();
+	std::string GetName() const;
+	int GetRate();
 	bool operator== (const Destination& helper);
 	Destination operator= (const Destination& helper);
+	void SpecPrint();
 	void Print();
-	
-
-	friend std::ostream& operator<<(std::ostream& os, const Destination& dt);
-	//friend std::istream& operator>>(std::istream& is, Destination& dt);
-
-	
 };
