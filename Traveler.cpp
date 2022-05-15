@@ -1,4 +1,3 @@
-#include "Destination.h"
 #include "Traveler.h"
 
 bool Traveler::ValidUserName(std::string user_name)

@@ -147,7 +147,7 @@ bool Destination::operator==(const Destination& helper)
 	return 0;
 }
 
-Destination Destination::operator=(const Destination& helper)
+Destination& Destination::operator=(const Destination& helper)
 {
 	if (this == &helper)
 		return *this;
